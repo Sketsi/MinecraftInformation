@@ -1,0 +1,9 @@
+version: 1.00
+name: MinecraftInformation
+main: me.sketsi.mcinfo.MCInfoMain
+author: Sketsi
+description: Provides various information on Enchantments.
+commands:  
+  mc:
+    aliases: []
+    description: Various commands inside.
