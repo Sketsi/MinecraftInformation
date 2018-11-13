@@ -6,8 +6,147 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+final class CommandType {
+	static final String HELP = "help";
+	static final String INFO = "info";
+	static final String ENCHANT = "enchant";
+}
+
+class VanillaEnchant {
+	private String name;
+	private String description;
+	private int maxLevel;
+	private boolean isCurse;
+
+	VanillaEnchant(String name, String description, int maxLevel) {
+		this.name = name;
+		this.description = description;
+		this.maxLevel = maxLevel;
+		this.isCurse = false;
+	}
+
+	VanillaEnchant(String name, String description, int maxLevel, boolean isCurse) {
+		this.name = name;
+		this.description = description;
+		this.maxLevel = maxLevel;
+		this.isCurse = isCurse;
+	}
+
+	public String getName() {
+		return ChatColor.translateAlternateColorCodes('&', (this.isCurse ? "&6" : "&a") + this.name);
+	}
+
+	public String toString() {
+		return ChatColor.translateAlternateColorCodes('&', String.format("%s&l%s &b(1 - %d): &3%s",
+				(this.isCurse ? "&c" : "&b"), this.name, this.maxLevel, this.description));
+	}
+
+	public int getMaxLevel() {
+		return maxLevel;
+	}
+
+	public boolean isCurse() {
+		return isCurse;
+	}
+}
+
+final class EnchantmentType {
+	static final VanillaEnchant AQUA_AFFINITY = new VanillaEnchant("AquaAffinity", "Increases underwater mining rate.", 1);
+	static final VanillaEnchant BANE_OF_ARTHROPODS = new VanillaEnchant("BaneOfArthropods", "Increases damage to arthropods.", 5);
+	static final VanillaEnchant BLAST_PROTECTION = new VanillaEnchant("BlastProtection", "Reduces explosion damage.", 4);
+	static final VanillaEnchant CHANNELING = new VanillaEnchant("Channeling", "Trident \"channels\" a bolt of lightning towards a hit entity. Only functions during thunderstorms.", 1)
+	static final VanillaEnchant CURSE_OF_BINDING = new VanillaEnchant("CurseOfBinding", "Prevents removal of items (except for in creative).", 1, true);
+	static final VanillaEnchant CURSE_OF_VANISHING = new VanillaEnchant("CurseOfVanishing", "Item Destroyed on death.", 1, true);
+	static final VanillaEnchant DEPTH_STRIDER = new VanillaEnchant("DepthStrider", "Increases underwater movement speed.", 3));
+	static final VanillaEnchant EFFICIENCY = new VanillaEnchant("Efficiency", "Increases mining speed.", 5));
+	static final VanillaEnchant FEATHER_FALLING = new VanillaEnchant("FeatherFalling", "Reduces fall damage.", 4));
+	static final VanillaEnchant FIRE_ASPECT = new VanillaEnchant("FireAspect", "Sets target on fire.", 2));
+	static final VanillaEnchant FIRE_PROTECTION = new VanillaEnchant("FireProtection", "Reduces fire damage.", 4));
+	static final VanillaEnchant FLAME = new VanillaEnchant("Flame", "Arrows set target on fire.", 1));
+	static final VanillaEnchant FORTUNE = new VanillaEnchant("Fortune", "Increases block drops.", 3));
+	static final VanillaEnchant FROST_WALKER = new VanillaEnchant("FrostWalker", "Turns water beneath the player into ice.", 2));
+	static final VanillaEnchant IMPALING = new VanillaEnchant("Impaling", "Trident deals additional damage to mobs that spawn naturally in the ocean.", 5));
+	static final VanillaEnchant INFINITY = new VanillaEnchant("Infinity", "Shooting consumes no arrows.", 1));
+	static final VanillaEnchant KNOCKBACK = new VanillaEnchant("Knockback", "Increases knockback.", 2));
+	static final VanillaEnchant LOOTING = new VanillaEnchant("Looting", "Increases mob loot.", 3));
+	static final VanillaEnchant LOYALTY = new VanillaEnchant("Loyalty", "Trident returns after being thrown. Higher levels reduce return time.", 3));
+	static final VanillaEnchant LUCK_OF_THE_SEA = new VanillaEnchant("LuckofTheSea", "Increases fishing luck.", 3));
+	static final VanillaEnchant LURE = new VanillaEnchant("Lure", "Increases fishing rate.", 3));
+	static final VanillaEnchant MENDING = new VanillaEnchant("Mending", "Repair items with experience.", 1));
+	static final VanillaEnchant MULTISHOT = new VanillaEnchant("Multishot", "Shoot 3 arrows at the cost of one.", 1));
+	static final VanillaEnchant PIERCING = new VanillaEnchant("Piercing", "Arrows pass through multiple entities.", 4));
+	static final VanillaEnchant POWER = new VanillaEnchant("Power", "Increases arrow damage.", 5));
+	static final VanillaEnchant PROJECTILE_PROTECTION = new VanillaEnchant("ProjectileProtection", "Reduces projectile damage.", 4));
+	static final VanillaEnchant PROTECTION = new VanillaEnchant("Protection", "Reduces most types of damage.", 4));
+	static final VanillaEnchant PUNCH = new VanillaEnchant("Punch", "Increases arrow knockback.", 2));
+	static final VanillaEnchant QUICK_CHARGE = new VanillaEnchant("QuickCharge", "Decreases crossbow reloading time.", 3));
+	static final VanillaEnchant RESPIRATION = new VanillaEnchant("Respiration", "Extends underwater breathing time.", 3));
+	static final VanillaEnchant RIPTIDE = new VanillaEnchant("Riptide", "Trident launches player with itself when thrown. Only functions in water or rain.", 3));
+	static final VanillaEnchant SHARPNESS = new VanillaEnchant("Sharpness", "Increases damage.", 5));
+	static final VanillaEnchant SILKTOUCH = new VanillaEnchant("Silktouch", "Mined blocks drop themselves.", 1));
+	static final VanillaEnchant SMITE = new VanillaEnchant("Smite", "Increases damage to undead mobs.", 5));
+	static final VanillaEnchant SWEEPING_EDGE = new VanillaEnchant("SweepingEdge", "Increases sweeping attack damage.", 3));
+	static final VanillaEnchant THORNS = new VanillaEnchant("Thorns", "Damages attackers.", 3));
+	static final VanillaEnchant UNBREAKING = new VanillaEnchant("Unbreaking", "Increases effective durability.", 3));
+}
 
 public class MCCommand implements CommandExecutor {
+	private static Map<String, VanillaEnchant> createEnchants() {
+		Map<String, VanillaEnchant> internalMap = new HashMap<String, VanillaEnchant>();
+		for (VanillaEnchant enchant : EnchantmentType) { internalMap.put(enchant.getName().toLowerCase(), enchant); }
+		return internalMap;
+	}
+
+	private final Map<String, VanillaEnchant> enchants = createEnchants();
+
+	private boolean handleInfoCommand(CommandSender sender, String[] args) {
+		// User didn't enter enough arguments to send info for a particular enchantment
+		if (args.length < 2) {
+			return sendHelp(sender, CommandType.INFO);
+		}
+
+		// User entered an enchantment that doesn't exist in our list
+		if (!enchants.containsKey(args[1].toLowerCase())) {
+			return sendHelp(sender, CommandType.INFO);
+		}
+
+		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', enchants.get(args[1].toLowerCase()));
+
+		return true;
+	}
+
+	private boolean sendDefault(CommandSender sender) {
+		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6MCInfo: &cUse \"&4&o/mc help\"&c!"));
+		return true;
+	}
+
+	private boolean sendHelp(CommandSender sender, String command) {
+		if (command == null || command.isEmpty()) {
+			return false;
+		}
+
+		switch(command) {
+			case CommandType.INFO:
+				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6MCInfo: &cIs that an enchantment? &4&o\"/mc ven list\""));
+				break;
+			case CommandType.ENCHANT:
+				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6MCInfo: &cUse \"&4&o/mc ven list [item]\" &cfor available options!"));
+				break;
+			case CommandType.HELP: // Falls through
+			default:
+				sender.sendMessage(ChatColor.GOLD + "Minecraft Information Help:");
+				sender.sendMessage(ChatColor.RED + "/mc info <enchantment>" + ChatColor.DARK_GRAY + " - " + ChatColor.GRAY +  "Get information on an enchantment.");
+				sender.sendMessage(ChatColor.RED + "/mc help" + ChatColor.DARK_GRAY + " - " + ChatColor.GRAY + "Brings this list up.");
+				sender.sendMessage(ChatColor.RED + "/mc ven list [item]" + ChatColor.DARK_GRAY + " - " + ChatColor.GRAY + "Lists all enchantments, if specify armor/tool it'll show specific.");
+				return true;
+		}
+
+		return false;
+	}
+
+	private boolean sendHelp(CommandSender sender) {
+		return sendHelp(sender, CommandType.HELP);
+	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -15,12 +154,30 @@ public class MCCommand implements CommandExecutor {
 		/*		/mc info <enchantment>
 		 * 			0			1
 		 * 		/mc ven list [gear]
-		 * 			0	1		2 
+		 * 			0	1		2
 		 * 		/mc help
 		 * 			0
-		 */		
+		 */
+		if (args.length < 1) {
+			// Send help to the user when the command is executed with no arguments -- can be replaced with any function call.
+			return sendHelp(sender);
+		}
+
+		switch(args[0].toLowerCase()) {
+			case CommandType.HELP:
+				return sendHelp(sender);
+			case CommandType.INFO:
+				return handleInfoCommand(sender, args);
+			case CommandType.ENCHANT:
+				return handleEnchantCommand(sender, args);
+			default:
+// 				return sendDefault(sender);
+				return sendHelp(sender);
+		}
+
+
 		if (args.length >= 1) {
-				//	mc info
+			//	mc info
 			if ((args[0].equalsIgnoreCase("info")) && (args.length == 0)) {
 				//	mc info <enchantment>
 				if (args[1].equalsIgnoreCase("AquaAffinity")) {
@@ -133,14 +290,14 @@ public class MCCommand implements CommandExecutor {
 				}
 				else if (args[1].equalsIgnoreCase("Unbreaking")) {
 					player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&lUnbreaking &b(1 - 3): &3Increases effective durability."));
-					
-				// If /mc info <enchantment> is invalid
-				} else {	
+
+					// If /mc info <enchantment> is invalid
+				} else {
 					player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6MCInfo: &cIs that an enchantment? &4&o\"/mc ven list\""));
 				}
-			
-				
-				
+
+
+
 				//	List Command
 				//	mc ven
 			} else if (args[0].equalsIgnoreCase("ven") && (args.length == 0)) {
@@ -148,20 +305,20 @@ public class MCCommand implements CommandExecutor {
 				if (args[1].equalsIgnoreCase("list") && (args.length == 1)) {
 					player.sendMessage(ChatColor.AQUA + "=========================================");
 					player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&lArmor&b:"));
-	                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7[&aAquaAffinity&7, &aBlastProtection&7, &6CurseofBinding&7, &aDepthStrider&7, &aFeatherFalling&7, &aFireProtection&7, &aFrostWalker&7, &aRespiration&7, &aProjectileProtection&7, &aProtection&7, &aThorns&7]"));
-	                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&lBow&b:"));
-	                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7[&aFlame&7, &aInfinity&7, &aMultishot&7, &aPiercing&7, &aPunch&7, &aPower&7, &aQuickCharge&7&7]"));
-	                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&lOther Enchants&b:"));
-	                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7[&6CurseofVanishing&7, &aMending&7, &aUnbreaking&7]"));
-	                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&lTools&b:"));
-	                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7[&aEfficiency&7, &aFortune&7, &aSilkTouch&7, &aLuckoftheSea&7, &aLure&7]"));
-	                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&lTrident&b:"));
-	                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7[&aChanneling&7, &aImpaling&7, &aLoyalty&7, &aRiptide&7]"));
-	                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&lWeapons&b:"));
-	                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7[&aBaneofArthropods&7, &aFireAspect&7, &aKnockback&7, &aLooting&7, &aSharpness&7, &aSmite&7, &aSweepingEdge&7]"));
+					player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7[&aAquaAffinity&7, &aBlastProtection&7, &6CurseofBinding&7, &aDepthStrider&7, &aFeatherFalling&7, &aFireProtection&7, &aFrostWalker&7, &aRespiration&7, &aProjectileProtection&7, &aProtection&7, &aThorns&7]"));
+					player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&lBow&b:"));
+					player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7[&aFlame&7, &aInfinity&7, &aMultishot&7, &aPiercing&7, &aPunch&7, &aPower&7, &aQuickCharge&7&7]"));
+					player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&lOther Enchants&b:"));
+					player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7[&6CurseofVanishing&7, &aMending&7, &aUnbreaking&7]"));
+					player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&lTools&b:"));
+					player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7[&aEfficiency&7, &aFortune&7, &aSilkTouch&7, &aLuckoftheSea&7, &aLure&7]"));
+					player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&lTrident&b:"));
+					player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7[&aChanneling&7, &aImpaling&7, &aLoyalty&7, &aRiptide&7]"));
+					player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&lWeapons&b:"));
+					player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7[&aBaneofArthropods&7, &aFireAspect&7, &aKnockback&7, &aLooting&7, &aSharpness&7, &aSmite&7, &aSweepingEdge&7]"));
 					player.sendMessage(ChatColor.AQUA + "=========================================");
 
-				//	If player uses /mc ven list <item>, this will start.
+					//	If player uses /mc ven list <item>, this will start.
 					if (args[2].equalsIgnoreCase("Helmet")) {
 						player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&lHelmet&b:"));
 						player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7[&aAquaAffinity&7, &aBlastProtection&7, &6CurseOfBinding&7, &6CurseOfVanishing&7, &aFireProtection&7, &aMending&7, &aProjectileProtection&7, &aProtection&7, &aRespiration&7, &aThorns&7, &aUnbreaking&7]"));
@@ -204,7 +361,7 @@ public class MCCommand implements CommandExecutor {
 					}
 					else if (args[2].equalsIgnoreCase("Bow")) {
 						player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&lBow&b:"));
-	                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7[&aFlame&7, &aInfinity&7, &aMultishot&7, &aPiercing&7, &aPunch&7, &aPower&7, &aQuickCharge&7&7]"));
+						player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7[&aFlame&7, &aInfinity&7, &aMultishot&7, &aPiercing&7, &aPunch&7, &aPower&7, &aQuickCharge&7&7]"));
 					}
 					else if (args[2].equalsIgnoreCase("Trident")) {
 						player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&b&lTrident&b:"));
@@ -251,9 +408,9 @@ public class MCCommand implements CommandExecutor {
 				} else {
 					player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6MCInfo: &cUse \"&4&o/mc ven list [item]\" &cfor available options!"));
 				}
-				
-				
-				
+
+
+
 				// Help Command
 			} else if (args[0].equalsIgnoreCase("help")){
 				player.sendMessage(ChatColor.GOLD + "Minecraft Information Help:");
@@ -261,18 +418,13 @@ public class MCCommand implements CommandExecutor {
 				player.sendMessage(ChatColor.RED + "/mc help" + ChatColor.DARK_GRAY + " - " + ChatColor.GRAY + "Brings this list up.");
 				player.sendMessage(ChatColor.RED + "/mc ven list [item]" + ChatColor.DARK_GRAY + " - " + ChatColor.GRAY + "Lists all enchantments, if specify armor/tool it'll show specific.");
 			}
-				
-				// If the command doesn't match anything, send them this.
+
+			// If the command doesn't match anything, send them this.
 		} else {
 			player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6MCInfo: &cUse \"&4&o/mc help\"&c!"));
 		}
-			
+
 		return false;
 	}
 
 }
-	
-	
-	
-	
-	
