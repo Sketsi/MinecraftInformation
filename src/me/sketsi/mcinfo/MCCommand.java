@@ -109,7 +109,42 @@ public class MCCommand implements CommandExecutor {
 		return internalMap;
 	}
 
+	private static Map<String, List<String>> createEnchantMap() {
+	    Map<String, List<String>> enchantMap = new HashMap<>();
+
+	    enchantMap.put("armor", Stream.of("aquaaffinity", "blastprotection", "curseofbinding", "depthstrider", "featherfalling", "fireprotection", "frostwalker", "respiration", "projectileprotection", "protection", "thorns").collect(Collectors.toList()));
+		enchantMap.put("bow", Stream.of("flame", "infinity", "multishot", "piercing", "punch", "power", "quickcharge").collect(Collectors.toList()));
+		enchantMap.put("other", Stream.of("curseofvanishing", "mending", "unbreaking").collect(Collectors.toList()));
+		enchantMap.put("tools", Stream.of("efficiency", "fortune", "silktouch", "luckofthesea", "lure").collect(Collectors.toList()));
+		enchantMap.put("trident", Stream.of("channeling", "impaling", "loyalty", "riptide").collect(Collectors.toList()));
+		enchantMap.put("weapons", Stream.of("baneofarthropods", "fireaspect", "knockback", "looting", "sharpness", "smite", "sweepingedge").collect(Collectors.toList()));
+		enchantMap.put("helmet", Stream.of("aquaaffinity", "blastprotection", "curseofbinding", "curseofvanishing", "fireprotection", "mending", "projectileprotection", "protection", "respiration", "thorns", "unbreaking").collect(Collectors.toList()));
+		enchantMap.put("turtleshell", Stream.of("aquaaffinity", "blastprotection", "curseofbinding", "curseofvanishing", "fireprotection", "mending", "projectileprotection", "protection", "respiration", "thorns", "unbreaking").collect(Collectors.toList()));
+		enchantMap.put("chestplate", Stream.of("blastprotection", "curseofbinding", "curseofvanishing", "fireprotection", "mending", "projectileprotection", "protection", "thorns", "unbreaking").collect(Collectors.toList()));
+		enchantMap.put("leggings", Stream.of("blastprotection", "curseofbinding", "curseofvanishing", "fireprotection", "mending", "projectileprotection", "protection", "thorns", "unbreaking").collect(Collectors.toList()));
+		enchantMap.put("boots", Stream.of("blastprotection", "curseofbinding", "curseofvanishing", "fireprotection", "mending", "projectileprotection", "protection", "thorns", "unbreaking").collect(Collectors.toList()));
+		enchantMap.put("sword", Stream.of("baneofarthropods", "curseofvanishing", "fireaspect", "knockback", "looting", "mending", "sharpness", "smite", "sweepingedge", "unbreaking").collect(Collectors.toList()));
+		enchantMap.put("pickaxe", Stream.of("curseofvanishing", "efficiency", "fortune", "mending", "silktouch", "unbreaking").collect(Collectors.toList()));
+		enchantMap.put("shovel", Stream.of("curseofvanishing", "efficiency", "fortune", "mending", "silktouch", "unbreaking").collect(Collectors.toList()));
+		enchantMap.put("axe", Stream.of("baneofarthropods", "curseofvanishing", "efficiency", "fireaspect", "fortune", "mending", "sharpness", "smite", "unbreaking").collect(Collectors.toList()));
+		enchantMap.put("hoe", Stream.of("curseofvanishing", "mending", "unbreaking").collect(Collectors.toList()));
+		enchantMap.put("fishingrod", Stream.of("curseofvanishing", "luckofthesea", "lure", "mending", "unbreaking").collect(Collectors.toList()));
+		enchantMap.put("shield", Stream.of("curseofvanishing", "mending", "unbreaking").collect(Collectors.toList()));
+		enchantMap.put("shears", Stream.of("curseofvanishing", "efficiency", "mending", "unbreaking").collect(Collectors.toList()));
+		enchantMap.put("elytra", Stream.of("curseofbinding", "curseofvanishing", "mending", "unbreaking").collect(Collectors.toList()));
+        enchantMap.put("pumpkin", Stream.of("curseofbinding", "curseofvanishing").collect(Collectors.toList()));
+        enchantMap.put("head", Stream.of("curseofbinding", "curseofvanishing").collect(Collectors.toList()));
+        enchantMap.put("skull", Stream.of("curseofbinding", "curseofvanishing").collect(Collectors.toList()));
+		enchantMap.put("book", Stream.of("aquaaffinity", "baneofarthropods", "blastprotection", "channeling", "curseofbinding", "curseofvanishing", "depthstrider", "efficiency", "featherfalling",
+				"fireaspect", "fireprotection", "flame", "fortune", "frostwalker", "impaling", "infinity", "knockback", "looting", "loyalty", "luckofthesealure", "mending", "multishot", "piercing", "power",
+				"projectileprotection", "protection", "punch", "quickcharge", "respiration", "riptide", "sharpness", "silktouch", "smite", "sweepingedge", "thorns", "unbreaking").collect(Collectors.toList()));
+
+		return enchantMap;
+	}
+
 	private final Map<String, VanillaEnchant> enchants = createEnchants();
+
+	private final Map<String, List<String>> enchantMap = createEnchantMap();
 
 	private boolean handleInfoCommand(CommandSender sender, String[] args) {
 		// User didn't enter enough arguments to send info for a particular enchantment
