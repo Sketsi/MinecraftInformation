@@ -122,7 +122,7 @@ public class MCCommand implements CommandExecutor {
 			return sendHelp(sender, CommandType.INFO);
 		}
 
-		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', enchants.get(args[1].toLowerCase()));
+		sender.sendMessage(enchants.get(args[1].toLowerCase()).toString());
 
 		return true;
 	}
