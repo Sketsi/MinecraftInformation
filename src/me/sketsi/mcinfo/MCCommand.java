@@ -61,50 +61,51 @@ class VanillaEnchant {
 	}
 }
 
-final class EnchantmentType {
-	static final VanillaEnchant AQUA_AFFINITY = new VanillaEnchant("AquaAffinity", "Increases underwater mining rate.", 1);
-	static final VanillaEnchant BANE_OF_ARTHROPODS = new VanillaEnchant("BaneOfArthropods", "Increases damage to arthropods.", 5);
-	static final VanillaEnchant BLAST_PROTECTION = new VanillaEnchant("BlastProtection", "Reduces explosion damage.", 4);
-	static final VanillaEnchant CHANNELING = new VanillaEnchant("Channeling", "Trident \"channels\" a bolt of lightning towards a hit entity. Only functions during thunderstorms.", 1)
-	static final VanillaEnchant CURSE_OF_BINDING = new VanillaEnchant("CurseOfBinding", "Prevents removal of items (except for in creative).", 1, true);
-	static final VanillaEnchant CURSE_OF_VANISHING = new VanillaEnchant("CurseOfVanishing", "Item Destroyed on death.", 1, true);
-	static final VanillaEnchant DEPTH_STRIDER = new VanillaEnchant("DepthStrider", "Increases underwater movement speed.", 3));
-	static final VanillaEnchant EFFICIENCY = new VanillaEnchant("Efficiency", "Increases mining speed.", 5));
-	static final VanillaEnchant FEATHER_FALLING = new VanillaEnchant("FeatherFalling", "Reduces fall damage.", 4));
-	static final VanillaEnchant FIRE_ASPECT = new VanillaEnchant("FireAspect", "Sets target on fire.", 2));
-	static final VanillaEnchant FIRE_PROTECTION = new VanillaEnchant("FireProtection", "Reduces fire damage.", 4));
-	static final VanillaEnchant FLAME = new VanillaEnchant("Flame", "Arrows set target on fire.", 1));
-	static final VanillaEnchant FORTUNE = new VanillaEnchant("Fortune", "Increases block drops.", 3));
-	static final VanillaEnchant FROST_WALKER = new VanillaEnchant("FrostWalker", "Turns water beneath the player into ice.", 2));
-	static final VanillaEnchant IMPALING = new VanillaEnchant("Impaling", "Trident deals additional damage to mobs that spawn naturally in the ocean.", 5));
-	static final VanillaEnchant INFINITY = new VanillaEnchant("Infinity", "Shooting consumes no arrows.", 1));
-	static final VanillaEnchant KNOCKBACK = new VanillaEnchant("Knockback", "Increases knockback.", 2));
-	static final VanillaEnchant LOOTING = new VanillaEnchant("Looting", "Increases mob loot.", 3));
-	static final VanillaEnchant LOYALTY = new VanillaEnchant("Loyalty", "Trident returns after being thrown. Higher levels reduce return time.", 3));
-	static final VanillaEnchant LUCK_OF_THE_SEA = new VanillaEnchant("LuckofTheSea", "Increases fishing luck.", 3));
-	static final VanillaEnchant LURE = new VanillaEnchant("Lure", "Increases fishing rate.", 3));
-	static final VanillaEnchant MENDING = new VanillaEnchant("Mending", "Repair items with experience.", 1));
-	static final VanillaEnchant MULTISHOT = new VanillaEnchant("Multishot", "Shoot 3 arrows at the cost of one.", 1));
-	static final VanillaEnchant PIERCING = new VanillaEnchant("Piercing", "Arrows pass through multiple entities.", 4));
-	static final VanillaEnchant POWER = new VanillaEnchant("Power", "Increases arrow damage.", 5));
-	static final VanillaEnchant PROJECTILE_PROTECTION = new VanillaEnchant("ProjectileProtection", "Reduces projectile damage.", 4));
-	static final VanillaEnchant PROTECTION = new VanillaEnchant("Protection", "Reduces most types of damage.", 4));
-	static final VanillaEnchant PUNCH = new VanillaEnchant("Punch", "Increases arrow knockback.", 2));
-	static final VanillaEnchant QUICK_CHARGE = new VanillaEnchant("QuickCharge", "Decreases crossbow reloading time.", 3));
-	static final VanillaEnchant RESPIRATION = new VanillaEnchant("Respiration", "Extends underwater breathing time.", 3));
-	static final VanillaEnchant RIPTIDE = new VanillaEnchant("Riptide", "Trident launches player with itself when thrown. Only functions in water or rain.", 3));
-	static final VanillaEnchant SHARPNESS = new VanillaEnchant("Sharpness", "Increases damage.", 5));
-	static final VanillaEnchant SILKTOUCH = new VanillaEnchant("Silktouch", "Mined blocks drop themselves.", 1));
-	static final VanillaEnchant SMITE = new VanillaEnchant("Smite", "Increases damage to undead mobs.", 5));
-	static final VanillaEnchant SWEEPING_EDGE = new VanillaEnchant("SweepingEdge", "Increases sweeping attack damage.", 3));
-	static final VanillaEnchant THORNS = new VanillaEnchant("Thorns", "Damages attackers.", 3));
-	static final VanillaEnchant UNBREAKING = new VanillaEnchant("Unbreaking", "Increases effective durability.", 3));
-}
-
 public class MCCommand implements CommandExecutor {
 	private static Map<String, VanillaEnchant> createEnchants() {
-		Map<String, VanillaEnchant> internalMap = new HashMap<String, VanillaEnchant>();
-		for (VanillaEnchant enchant : EnchantmentType) { internalMap.put(enchant.getName().toLowerCase(), enchant); }
+		Map<String, VanillaEnchant> internalMap = new HashMap<>();
+		List<VanillaEnchant> enchantList = Stream.of(
+				new VanillaEnchant("AquaAffinity", "Increases underwater mining rate.", 1),
+				new VanillaEnchant("BaneOfArthropods", "Increases damage to arthropods.", 5),
+				new VanillaEnchant("BlastProtection", "Reduces explosion damage.", 4),
+				new VanillaEnchant("Channeling", "Trident \"channels\" a bolt of lightning towards a hit entity. Only functions during thunderstorms.", 1),
+				new VanillaEnchant("CurseOfBinding", "Prevents removal of items (except for in creative).", 1, true),
+				new VanillaEnchant("CurseOfVanishing", "Item Destroyed on death.", 1, true),
+				new VanillaEnchant("DepthStrider", "Increases underwater movement speed.", 3),
+				new VanillaEnchant("Efficiency", "Increases mining speed.", 5),
+				new VanillaEnchant("FeatherFalling", "Reduces fall damage.", 4),
+				new VanillaEnchant("FireAspect", "Sets target on fire.", 2),
+				new VanillaEnchant("FireProtection", "Reduces fire damage.", 4),
+				new VanillaEnchant("Flame", "Arrows set target on fire.", 1),
+				new VanillaEnchant("Fortune", "Increases block drops.", 3),
+				new VanillaEnchant("FrostWalker", "Turns water beneath the player into ice.", 2),
+				new VanillaEnchant("Impaling", "Trident deals additional damage to mobs that spawn naturally in the ocean.", 5),
+				new VanillaEnchant("Infinity", "Shooting consumes no arrows.", 1),
+				new VanillaEnchant("Knockback", "Increases knockback.", 2),
+				new VanillaEnchant("Looting", "Increases mob loot.", 3),
+				new VanillaEnchant("Loyalty", "Trident returns after being thrown. Higher levels reduce return time.", 3),
+				new VanillaEnchant("LuckofTheSea", "Increases fishing luck.", 3),
+				new VanillaEnchant("Lure", "Increases fishing rate.", 3),
+				new VanillaEnchant("Mending", "Repair items with experience.", 1),
+				new VanillaEnchant("Multishot", "Shoot 3 arrows at the cost of one.", 1),
+				new VanillaEnchant("Piercing", "Arrows pass through multiple entities.", 4),
+				new VanillaEnchant("Power", "Increases arrow damage.", 5),
+				new VanillaEnchant("ProjectileProtection", "Reduces projectile damage.", 4),
+				new VanillaEnchant("Protection", "Reduces most types of damage.", 4),
+				new VanillaEnchant("Punch", "Increases arrow knockback.", 2),
+				new VanillaEnchant("QuickCharge", "Decreases crossbow reloading time.", 3),
+				new VanillaEnchant("Respiration", "Extends underwater breathing time.", 3),
+				new VanillaEnchant("Riptide", "Trident launches player with itself when thrown. Only functions in water or rain.", 3),
+				new VanillaEnchant("Sharpness", "Increases damage.", 5),
+				new VanillaEnchant("Silktouch", "Mined blocks drop themselves.", 1),
+				new VanillaEnchant("Smite", "Increases damage to undead mobs.", 5),
+				new VanillaEnchant("SweepingEdge", "Increases sweeping attack damage.", 3),
+				new VanillaEnchant("Thorns", "Damages attackers.", 3),
+				new VanillaEnchant("Unbreaking", "Increases effective durability.", 3)
+		).collect(Collectors.toList());
+
+		for (VanillaEnchant enchant : enchantList) { internalMap.put(enchant.getName().toLowerCase(), enchant); }
+
 		return internalMap;
 	}
 
