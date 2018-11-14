@@ -62,6 +62,15 @@ class VanillaEnchant {
 }
 
 public class MCCommand implements CommandExecutor {
+	private static boolean sendMessage(CommandSender sender, String message) {
+		try {
+			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+
 	private static Map<String, VanillaEnchant> createEnchants() {
 		Map<String, VanillaEnchant> internalMap = new HashMap<>();
 		List<VanillaEnchant> enchantList = Stream.of(
