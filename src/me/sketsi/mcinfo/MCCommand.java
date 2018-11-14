@@ -40,6 +40,10 @@ class VanillaEnchant {
 	}
 
 	public String getName() {
+		return name;
+	}
+
+	public String getFormattedName() {
 		return ChatColor.translateAlternateColorCodes('&', (this.isCurse ? "&6" : "&a") + this.name);
 	}
 
