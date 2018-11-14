@@ -127,6 +127,17 @@ public class MCCommand implements CommandExecutor {
 		return true;
 	}
 
+	private boolean handleEnchantCommand(CommandSender sender, String[] args) {
+		// User didn't enter enough arguments to
+		if (args.length < 2) {
+			return sendHelp(sender, CommandType.ENCHANT);
+		}
+
+		// Enchant code stub
+
+		return true;
+	}
+
 	private boolean sendDefault(CommandSender sender) {
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6MCInfo: &cUse \"&4&o/mc help\"&c!"));
 		return true;
