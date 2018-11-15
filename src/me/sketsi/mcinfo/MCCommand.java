@@ -39,7 +39,7 @@ class VanillaEnchant {
 		this.isCurse = isCurse;
 	}
 
-	public String getName() {
+	String getName() {
 		return name;
 	}
 
