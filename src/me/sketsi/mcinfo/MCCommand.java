@@ -4,9 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -123,7 +121,8 @@ public class MCCommand implements CommandExecutor {
 				new VanillaEnchant("Unbreaking", "Increases effective durability.", 3)
 		).collect(Collectors.toList());
 
-		for (VanillaEnchant enchant : enchantList) { internalMap.put(enchant.getName().toLowerCase(), enchant); }
+		for (VanillaEnchant enchant : enchantList)
+			internalMap.put(enchant.getName().toLowerCase(), enchant);
 
 		return internalMap;
 	}
@@ -222,7 +221,7 @@ public class MCCommand implements CommandExecutor {
 			return false;
 		}
 
-		switch(command) {
+		switch (command) {
 			case CommandType.INFO:
 				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6MCInfo: &cIs that an enchantment? &4&o\"/mc ven list\""));
 				break;
@@ -232,7 +231,7 @@ public class MCCommand implements CommandExecutor {
 			case CommandType.HELP: // Falls through
 			default:
 				sender.sendMessage(ChatColor.GOLD + "Minecraft Information Help:");
-				sender.sendMessage(ChatColor.RED + "/mc info <enchantment>" + ChatColor.DARK_GRAY + " - " + ChatColor.GRAY +  "Get information on an enchantment.");
+				sender.sendMessage(ChatColor.RED + "/mc info <enchantment>" + ChatColor.DARK_GRAY + " - " + ChatColor.GRAY + "Get information on an enchantment.");
 				sender.sendMessage(ChatColor.RED + "/mc help" + ChatColor.DARK_GRAY + " - " + ChatColor.GRAY + "Brings this list up.");
 				sender.sendMessage(ChatColor.RED + "/mc ven list [item]" + ChatColor.DARK_GRAY + " - " + ChatColor.GRAY + "Lists all enchantments, if specify armor/tool it'll show specific.");
 				return true;
@@ -247,20 +246,12 @@ public class MCCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		Player player = (Player) sender;
-		/*		/mc info <enchantment>
-		 * 			0			1
-		 * 		/mc ven list [gear]
-		 * 			0	1		2
-		 * 		/mc help
-		 * 			0
-		 */
 		if (args.length < 1) {
 			// Send help to the user when the command is executed with no arguments -- can be replaced with any function call.
 			return sendHelp(sender);
 		}
 
-		switch(args[0].toLowerCase()) {
+		switch (args[0].toLowerCase()) {
 			case CommandType.HELP:
 				return sendHelp(sender);
 			case CommandType.INFO:
