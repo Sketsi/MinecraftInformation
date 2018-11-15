@@ -166,41 +166,6 @@ public class MCCommand implements CommandExecutor {
 
 	private final String[] defaultGroups = new String[]{"armor", "bow", "other", "tools", "trident", "weapons"};
 
-	private boolean handleInfoCommand(CommandSender sender, String[] args) {
-		// User didn't enter enough arguments to send info for a particular enchantment
-		if (args.length < 2) {
-			return sendHelp(sender, CommandType.INFO);
-		}
-
-		// User entered an enchantment that doesn't exist in our list
-		if (!enchants.containsKey(args[1].toLowerCase())) {
-			return sendHelp(sender, CommandType.INFO);
-		}
-
-		sender.sendMessage(enchants.get(args[1].toLowerCase()).toString());
-
-		return true;
-	}
-
-	private boolean handleEnchantCommand(CommandSender sender, String[] args) {
-		// User didn't enter enough arguments to
-		if (args.length < 2 || !args[1].equals("list")) {
-			return sendHelp(sender, CommandType.ENCHANT);
-		}
-
-		if (args.length == 2) {
-			sender.sendMessage(ChatColor.AQUA + "=========================================");
-			for (String group : defaultGroups) sendEnchantList(sender, group);
-			sender.sendMessage(ChatColor.AQUA + "=========================================");
-			return true;
-		}
-
-		if (!enchantMap.containsKey(args[2]))
-			return sendHelp(sender, CommandType.ENCHANT);
-
-		return sendEnchantList(sender, args[2]);
-	}
-
 	private boolean sendEnchantList(CommandSender sender, String group) {
 		VanillaEnchantGroup enchantgroup = enchantMap.get(group);
 
@@ -242,6 +207,41 @@ public class MCCommand implements CommandExecutor {
 
 	private boolean sendHelp(CommandSender sender) {
 		return sendHelp(sender, CommandType.HELP);
+	}
+
+	private boolean handleInfoCommand(CommandSender sender, String[] args) {
+		// User didn't enter enough arguments to send info for a particular enchantment
+		if (args.length < 2) {
+			return sendHelp(sender, CommandType.INFO);
+		}
+
+		// User entered an enchantment that doesn't exist in our list
+		if (!enchants.containsKey(args[1].toLowerCase())) {
+			return sendHelp(sender, CommandType.INFO);
+		}
+
+		sender.sendMessage(enchants.get(args[1].toLowerCase()).toString());
+
+		return true;
+	}
+
+	private boolean handleEnchantCommand(CommandSender sender, String[] args) {
+		// User didn't enter enough arguments to
+		if (args.length < 2 || !args[1].equals("list")) {
+			return sendHelp(sender, CommandType.ENCHANT);
+		}
+
+		if (args.length == 2) {
+			sender.sendMessage(ChatColor.AQUA + "=========================================");
+			for (String group : defaultGroups) sendEnchantList(sender, group);
+			sender.sendMessage(ChatColor.AQUA + "=========================================");
+			return true;
+		}
+
+		if (!enchantMap.containsKey(args[2]))
+			return sendHelp(sender, CommandType.ENCHANT);
+
+		return sendEnchantList(sender, args[2]);
 	}
 
 	@Override
