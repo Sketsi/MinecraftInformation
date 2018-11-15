@@ -165,6 +165,8 @@ public class MCCommand implements CommandExecutor {
 
 	private final Map<String, VanillaEnchantGroup> enchantMap = createEnchantMap();
 
+	private final String[] defaultGroups = new String[]{"armor", "bow", "other", "tools", "trident", "weapons"};
+
 	private boolean handleInfoCommand(CommandSender sender, String[] args) {
 		// User didn't enter enough arguments to send info for a particular enchantment
 		if (args.length < 2) {
@@ -180,7 +182,6 @@ public class MCCommand implements CommandExecutor {
 
 		return true;
 	}
-	private final String[] defaultGroups = new String[]{"armor", "bow", "other", "tools", "trident", "weapons"};
 
 	private boolean handleEnchantCommand(CommandSender sender, String[] args) {
 		// User didn't enter enough arguments to
