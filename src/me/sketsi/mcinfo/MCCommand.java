@@ -180,6 +180,7 @@ public class MCCommand implements CommandExecutor {
 
 		return true;
 	}
+	private final String[] defaultGroups = new String[]{"armor", "bow", "other", "tools", "trident", "weapons"};
 
 	private boolean handleEnchantCommand(CommandSender sender, String[] args) {
 		// User didn't enter enough arguments to
