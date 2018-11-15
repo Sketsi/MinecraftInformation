@@ -55,28 +55,26 @@ class VanillaEnchantGroup {
 	private String name;
 	private List<String> enchants;
 
-	public VanillaEnchantGroup(String name, List<String> enchants) {
+	VanillaEnchantGroup(String name, List<String> enchants) {
 		this.name = name;
 		this.enchants = enchants;
 	}
 
-	public String getName() {
+	String getName() {
 		return name;
 	}
 
-	public List<String> getEnchants() {
+	List<String> getEnchants() {
 		return enchants;
 	}
 }
 
 public class MCCommand implements CommandExecutor {
-	private static boolean sendMessage(CommandSender sender, String message) {
+	private static void sendMessage(CommandSender sender, String message) {
 		try {
 			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
-		} catch (Exception e) {
-			return false;
+		} catch (Exception ignored) {
 		}
-		return true;
 	}
 
 	private static Map<String, VanillaEnchant> createEnchants() {
