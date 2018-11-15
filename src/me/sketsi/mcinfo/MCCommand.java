@@ -52,12 +52,12 @@ class VanillaEnchant {
 				(this.isCurse ? "&c" : "&b"), this.name, this.maxLevel, this.description));
 	}
 
-	public int getMaxLevel() {
-		return maxLevel;
+	public String getName() {
+		return name;
 	}
 
-	public boolean isCurse() {
-		return isCurse;
+	public List<String> getEnchants() {
+		return enchants;
 	}
 }
 
