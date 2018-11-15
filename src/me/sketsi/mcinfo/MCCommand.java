@@ -51,6 +51,16 @@ class VanillaEnchant {
 		return ChatColor.translateAlternateColorCodes('&', String.format("%s&l%s &b(1 - %d): &3%s",
 				(this.isCurse ? "&c" : "&b"), this.name, this.maxLevel, this.description));
 	}
+}
+
+class VanillaEnchantGroup {
+	private String name;
+	private List<String> enchants;
+
+	public VanillaEnchantGroup(String name, List<String> enchants) {
+		this.name = name;
+		this.enchants = enchants;
+	}
 
 	public String getName() {
 		return name;
