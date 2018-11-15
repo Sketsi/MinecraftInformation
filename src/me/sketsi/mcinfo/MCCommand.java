@@ -185,11 +185,29 @@ public class MCCommand implements CommandExecutor {
 
 	private boolean handleEnchantCommand(CommandSender sender, String[] args) {
 		// User didn't enter enough arguments to
-		if (args.length < 2) {
+		if (args.length < 2 || !args[1].equals("list")) {
 			return sendHelp(sender, CommandType.ENCHANT);
 		}
 
-		// Enchant code stub
+		if (args.length == 2) {
+			sender.sendMessage(ChatColor.AQUA + "=========================================");
+			for (String group : defaultGroups) sendEnchantList(sender, group);
+			sender.sendMessage(ChatColor.AQUA + "=========================================");
+			return true;
+		}
+
+		if (!enchantMap.containsKey(args[2]))
+			return sendHelp(sender, CommandType.ENCHANT);
+
+		return sendEnchantList(sender, args[2]);
+	}
+
+	private boolean sendEnchantList(CommandSender sender, String group) {
+		VanillaEnchantGroup enchantgroup = enchantMap.get(group);
+
+		sendMessage(sender, String.format("&b&l%s&b:", enchantMap.get(group).getName()));
+		sendMessage(sender, String.format("&7[%s&7]", enchantgroup.getEnchants().stream().parallel()
+				.map(key -> enchants.get(key).getName()).collect(Collectors.joining(", "))));
 
 		return true;
 	}
