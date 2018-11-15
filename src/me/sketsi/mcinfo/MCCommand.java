@@ -171,7 +171,7 @@ public class MCCommand implements CommandExecutor {
 
 		sendMessage(sender, String.format("&b&l%s&b:", enchantMap.get(group).getName()));
 		sendMessage(sender, String.format("&7[%s&7]", enchantgroup.getEnchants().stream().parallel()
-				.map(key -> enchants.get(key).getName()).collect(Collectors.joining(", "))));
+				.map(key -> enchants.get(key).getFormattedName()).collect(Collectors.joining(", "))));
 
 		return true;
 	}
