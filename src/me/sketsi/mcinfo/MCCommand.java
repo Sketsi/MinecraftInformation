@@ -198,7 +198,7 @@ public class MCCommand implements CommandExecutor {
 				sender.sendMessage(ChatColor.GOLD + "Minecraft Information Help:");
 				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c/mc info <enchantment> &8- &7Get information on an enchantment."));
 				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c/mc help &8- &7Brings this list up."));
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c/mc enchant list [item] &8- &7Lists all enchantments, if specify armor/tool it'll show specific."));
+				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c/mc enchant list [item] &8- &7Lists all enchantments, if you specify item, it'll show specifics."));
 				return true;
 		}
 
