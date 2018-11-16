@@ -112,7 +112,7 @@ public class MCCommand implements CommandExecutor {
 				new VanillaEnchant("Respiration", "Extends underwater breathing time.", 3),
 				new VanillaEnchant("Riptide", "Trident launches player with itself when thrown. Only functions in water or rain.", 3),
 				new VanillaEnchant("Sharpness", "Increases damage.", 5),
-				new VanillaEnchant("Silktouch", "Mined blocks drop themselves.", 1),
+				new VanillaEnchant("SilkTouch", "Mined blocks drop themselves.", 1),
 				new VanillaEnchant("Smite", "Increases damage to undead mobs.", 5),
 				new VanillaEnchant("SweepingEdge", "Increases sweeping attack damage.", 3),
 				new VanillaEnchant("Thorns", "Damages attackers.", 3),
@@ -131,9 +131,9 @@ public class MCCommand implements CommandExecutor {
 		enchantMap.put("armor", new VanillaEnchantGroup("Armor", Stream.of("aquaaffinity", "blastprotection", "curseofbinding", "depthstrider", "featherfalling", "fireprotection", "frostwalker", "respiration", "projectileprotection", "protection", "thorns").collect(Collectors.toList())));
 		enchantMap.put("bow", new VanillaEnchantGroup("Bow", Stream.of("flame", "infinity", "multishot", "piercing", "punch", "power", "quickcharge").collect(Collectors.toList())));
 		enchantMap.put("other", new VanillaEnchantGroup("Other Enchantments", Stream.of("curseofvanishing", "mending", "unbreaking").collect(Collectors.toList())));
-		enchantMap.put("tools", new VanillaEnchantGroup("Tools", Stream.of("efficiency", "fortune", "silktouch", "luckofthesea", "lure").collect(Collectors.toList())));
-		enchantMap.put("trident", new VanillaEnchantGroup("Trident", Stream.of("channeling", "impaling", "loyalty", "riptide").collect(Collectors.toList())));
+		enchantMap.put("tools", new VanillaEnchantGroup("Tools", Stream.of("channeling", "efficiency", "fortune", "loyalty", "luckofthesea", "lure", "riptide", "silktouch").collect(Collectors.toList())));
 		enchantMap.put("weapons", new VanillaEnchantGroup("Weapons", Stream.of("baneofarthropods", "fireaspect", "knockback", "looting", "sharpness", "smite", "sweepingedge").collect(Collectors.toList())));
+		enchantMap.put("trident", new VanillaEnchantGroup("Trident", Stream.of("channeling", "curseofvanishing", "loyalty", "riptide", "unbreaking").collect(Collectors.toList())));
 		enchantMap.put("helmet", new VanillaEnchantGroup("Helmet", Stream.of("aquaaffinity", "blastprotection", "curseofbinding", "curseofvanishing", "fireprotection", "mending", "projectileprotection", "protection", "respiration", "thorns", "unbreaking").collect(Collectors.toList())));
 		enchantMap.put("turtleshell", new VanillaEnchantGroup("Turtle Shell", Stream.of("aquaaffinity", "blastprotection", "curseofbinding", "curseofvanishing", "fireprotection", "mending", "projectileprotection", "protection", "respiration", "thorns", "unbreaking").collect(Collectors.toList())));
 		enchantMap.put("chestplate", new VanillaEnchantGroup("Chestplate", Stream.of("blastprotection", "curseofbinding", "curseofvanishing", "fireprotection", "mending", "projectileprotection", "protection", "thorns", "unbreaking").collect(Collectors.toList())));
@@ -151,6 +151,7 @@ public class MCCommand implements CommandExecutor {
 		enchantMap.put("pumpkin", new VanillaEnchantGroup("Pumpkin", Stream.of("curseofbinding", "curseofvanishing").collect(Collectors.toList())));
 		enchantMap.put("head", new VanillaEnchantGroup("Head", Stream.of("curseofbinding", "curseofvanishing").collect(Collectors.toList())));
 		enchantMap.put("skull", new VanillaEnchantGroup("Skull", Stream.of("curseofbinding", "curseofvanishing").collect(Collectors.toList())));
+		enchantMap.put("flintandsteel", new VanillaEnchantGroup("Flint and Steel", Stream.of("curseofvanishing", "mending", "unbreaking").collect(Collectors.toList())));
 		enchantMap.put("book", new VanillaEnchantGroup("Book", Stream.of("aquaaffinity", "baneofarthropods", "blastprotection", "channeling", "curseofbinding", "curseofvanishing", "depthstrider", "efficiency", "featherfalling",
 				"fireaspect", "fireprotection", "flame", "fortune", "frostwalker", "impaling", "infinity", "knockback", "looting", "loyalty", "luckofthesealure", "mending", "multishot", "piercing", "power",
 				"projectileprotection", "protection", "punch", "quickcharge", "respiration", "riptide", "sharpness", "silktouch", "smite", "sweepingedge", "thorns", "unbreaking").collect(Collectors.toList())));
@@ -162,20 +163,21 @@ public class MCCommand implements CommandExecutor {
 
 	private final Map<String, VanillaEnchantGroup> enchantMap = createEnchantMap();
 
-	private final String[] defaultGroups = new String[]{"armor", "bow", "other", "tools", "trident", "weapons"};
+	private final String[] defaultGroups = new String[]{"armor", "bow", "other", "tools", "weapons"};
 
 	private boolean sendEnchantList(CommandSender sender, String group) {
 		VanillaEnchantGroup enchantgroup = enchantMap.get(group);
 
 		sendMessage(sender, String.format("&b&l%s&b:", enchantMap.get(group).getName()));
 		sendMessage(sender, String.format("&7[%s&7]", enchantgroup.getEnchants().stream().parallel()
-				.map(key -> enchants.get(key).getFormattedName()).collect(Collectors.joining(", "))));
+				.map(key -> enchants.get(key).getFormattedName()).collect(Collectors.joining("&7, "))));
 
 		return true;
 	}
 
+	@SuppressWarnings("unused")
 	private boolean sendDefault(CommandSender sender) {
-		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6MCInfo: &cUse \"&4&o/mc help\"&c!"));
+		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6MCInfo: &cUse \"&4&o/mc help&c\"!"));
 		return true;
 	}
 
@@ -186,17 +188,17 @@ public class MCCommand implements CommandExecutor {
 
 		switch (command) {
 			case CommandType.INFO:
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6MCInfo: &cIs that an enchantment? &4&o\"/mc ven list\""));
+				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6MCInfo: &cIs that an enchantment? \"&4&o/mc enchant list&c\""));
 				break;
 			case CommandType.ENCHANT:
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6MCInfo: &cUse \"&4&o/mc ven list [item]\" &cfor available options!"));
+				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6MCInfo: &cUse \"&4&o/mc enchant list [item]&c\" for available options!"));
 				break;
 			case CommandType.HELP: // Falls through
 			default:
 				sender.sendMessage(ChatColor.GOLD + "Minecraft Information Help:");
-				sender.sendMessage(ChatColor.RED + "/mc info <enchantment>" + ChatColor.DARK_GRAY + " - " + ChatColor.GRAY + "Get information on an enchantment.");
-				sender.sendMessage(ChatColor.RED + "/mc help" + ChatColor.DARK_GRAY + " - " + ChatColor.GRAY + "Brings this list up.");
-				sender.sendMessage(ChatColor.RED + "/mc ven list [item]" + ChatColor.DARK_GRAY + " - " + ChatColor.GRAY + "Lists all enchantments, if specify armor/tool it'll show specific.");
+				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c/mc info <enchantment> &8- &7Get information on an enchantment."));
+				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c/mc help &8- &7Brings this list up."));
+				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c/mc enchant list [item] &8- &7Lists all enchantments, if specify armor/tool it'll show specific."));
 				return true;
 		}
 
