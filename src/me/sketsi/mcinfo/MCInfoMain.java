@@ -1,5 +1,6 @@
 package me.sketsi.mcinfo;
 
+
 import org.bukkit.ChatColor;
 
 import org.bukkit.plugin.java.JavaPlugin;
