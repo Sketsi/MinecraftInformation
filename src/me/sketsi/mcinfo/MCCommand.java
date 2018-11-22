@@ -46,10 +46,6 @@ public class MCCommand implements CommandExecutor {
 		return sendHelp(sender, CommandType.HELP);
 	}
 	
-	private boolean sendMCEnchant(CommandSender sender) {
-		return send
-	}
-	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (args.length < 1) {
